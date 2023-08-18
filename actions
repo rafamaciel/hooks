@@ -1,0 +1,34 @@
+#!/bin/sh
+
+function is_installed() {
+  if command -v git-actions >/dev/null 2>&1; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function is_enabled() {
+  if git config --get actions.status >/dev/null 2>&1; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function is_checkout() {
+   if [ "$CHECKOUT" = "1" ]; then
+      echo true
+   else
+      echo false
+   fi
+}
+
+function tag(){
+  t=$(git describe --exact-match --tags "$CURRENT_COMMIT" 2>/dev/null)
+  echo $t
+}
+
+function branch() {
+  git symbolic-ref --short HEAD
+}

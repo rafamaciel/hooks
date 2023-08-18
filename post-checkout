@@ -1,0 +1,19 @@
+#!/bin/sh
+source actions
+
+PREVIOUS_COMMIT=$1
+CURRENT_COMMIT=$2
+CHECKOUT=$3
+
+if [ "$(is_installed)" = "true" ]; then
+  if [ "$(is_enabled)" = "true" ]; then
+    if [ "$(is_checkout)" = "true" ]; then
+      if [ -n "$tag" ]; then
+      echo "tag: $(tag)"
+        git-actions run --event checkout --kind tag --value $(tag)
+      else
+        git-actions run --event checkout --kind branch --value $(branch)
+      fi
+    fi
+  fi
+fi
